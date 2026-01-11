@@ -22,27 +22,25 @@ def main():
     if usage.document.valid:
         print(f"\nDocument usage: {usage.document.count} of {usage.document.limit}")        
 
-    input("\nPress Enter key to select a file to translate to English.")
-    input_path = askopenfilename(
-        defaultextension="pdf",
-        filetypes=[("PDF files", "*.pdf"), ("All Files", "*.*")],
-    )
-    if not input_path:
-        return
-    else:
-        input_path = Path(input_path)
-        print(f"Selected file: {input_path}")
+    input_path = None
+    while not input_path:
+        input("\nPress Enter key to select a file to translate to English.")
+        input_path = askopenfilename(
+            defaultextension="pdf",
+            filetypes=[("PDF files", "*.pdf"), ("All Files", "*.*")],
+        )
+    input_path = Path(input_path)
+    print(f"Selected file: {input_path}")
 
-    input("\nPress Enter key to select save location.")
-    output_path = asksaveasfilename(
-        defaultextension="pdf",
-        filetypes=[("PDF files", "*.pdf"), ("All Files", "*.*")],
-    )
-    if not output_path:
-        return
-    else:
-        output_path = Path(output_path)
-        print(f"Selected save location: {output_path}")
+    output_path = None
+    while not output_path:
+        input("\nPress Enter key to select save location.")
+        output_path = asksaveasfilename(
+            defaultextension="pdf",
+            filetypes=[("PDF files", "*.pdf"), ("All Files", "*.*")],
+        )
+    output_path = Path(output_path)
+    print(f"Selected save location: {output_path}")
     
     print("\nTranslating. This might take a few minutes...")
     try:
