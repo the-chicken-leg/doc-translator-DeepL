@@ -1,11 +1,20 @@
 # Python-generated files
+.venv/
+.conda/
 __pycache__/
-*.py[oc]
 build/
 dist/
 wheels/
+*.py[oc]
 *.egg-info
+*.spec
 
 # Virtual environments
 .venv
+
+# Environment files
 .env
+.vscode/
+
+# PDF files
+*.pdf
