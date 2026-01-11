@@ -6,10 +6,15 @@ from pathlib import Path
 import deepl
 
 def main():
-    api_key = getpass(prompt="Enter API key: ")
-    deepl_client = deepl.DeepLClient(api_key)
+    usage = None
+    while not usage:
+        api_key = getpass(prompt="Enter API key: ")
+        try:
+            deepl_client = deepl.DeepLClient(api_key)
+            usage = deepl_client.get_usage()
+        except deepl.AuthorizationException as error:
+            print(error)
 
-    usage = deepl_client.get_usage()
     if usage.any_limit_reached:
         print('\nTranslation limit reached.')
     if usage.character.valid:
