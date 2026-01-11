@@ -1,16 +1,12 @@
-import os
-from dotenv import load_dotenv
-from pathlib import Path
+from getpass import getpass
 from tkinter.filedialog import askopenfilename
 from tkinter.filedialog import asksaveasfilename
+from pathlib import Path
 
 import deepl
 
 def main():
-    load_dotenv()
-    api_key = os.environ.get("DEEPL_API_KEY")
-    if api_key is None:
-        raise RuntimeError("The API key was not found. Please check your .env file.")
+    api_key = getpass(prompt="Enter API key: ")
     deepl_client = deepl.DeepLClient(api_key)
 
     usage = deepl_client.get_usage()
