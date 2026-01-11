@@ -13,41 +13,44 @@ def main():
         raise RuntimeError("The API key was not found. Please check your .env file.")
     deepl_client = deepl.DeepLClient(api_key)
 
-    # result = deepl_client.translate_text("Mein Arbeitgeber ist Scheiße!", target_lang="EN-US")
-    # print(result.text)
+    usage = deepl_client.get_usage()
+    if usage.any_limit_reached:
+        print('Translation limit reached.')
+    if usage.character.valid:
+        print(f"Character usage: {usage.character.count} of {usage.character.limit}. 1 Document = 50,000 characters.")
+    if usage.document.valid:
+        print(f"Document usage: {usage.document.count} of {usage.document.limit}")        
 
-    # Translate a formal document from English to German
-    input_path = Path(askopenfilename(
+    input("\nPress Enter key to select a file to translate to English.")
+    input_path = askopenfilename(
         defaultextension="pdf",
         filetypes=[("PDF files", "*.pdf"), ("All Files", "*.*")],
-    ))
+    )
     if not input_path:
         return
-    output_path = Path(asksaveasfilename(
+    else:
+        input_path = Path(input_path)
+        print(f"Selected file: {input_path}")
+
+    input("\nPress Enter key to select save location.")
+    output_path = asksaveasfilename(
         defaultextension="pdf",
         filetypes=[("PDF files", "*.pdf"), ("All Files", "*.*")],
-    ))
+    )
     if not output_path:
         return
+    else:
+        output_path = Path(output_path)
+        print(f"Selected save location: {output_path}")
     
+    print("\nTranslating. This might take a few minutes...")
     try:
-        # Using translate_document_from_filepath() with file paths 
         deepl_client.translate_document_from_filepath(
             input_path,
             output_path,
             target_lang="EN-US",
-            formality="more"
+            # formality="more"
         )
-
-        # Alternatively you can use translate_document() with file IO objects
-        # with open(input_path, "rb") as in_file, open(output_path, "wb") as out_file:
-        #     deepl_client.translate_document(
-        #         in_file,
-        #         out_file,
-        #         target_lang="DE",
-        #         formality="more"
-        #     )
-
     except deepl.DocumentTranslationException as error:
         # If an error occurs during document translation after the document was
         # already uploaded, a DocumentTranslationException is raised. The
@@ -59,6 +62,8 @@ def main():
     except deepl.DeepLException as error:
         # Errors during upload raise a DeepLException
         print(error)
+    input("Translation finished. Press Enter key to exit")
+    print("Cleaning up...")
 
 if __name__ == "__main__":
     main()
