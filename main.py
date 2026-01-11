@@ -11,11 +11,11 @@ def main():
 
     usage = deepl_client.get_usage()
     if usage.any_limit_reached:
-        print('Translation limit reached.')
+        print('\nTranslation limit reached.')
     if usage.character.valid:
-        print(f"Character usage: {usage.character.count} of {usage.character.limit}. 1 Document = 50,000 characters.")
+        print(f"\nCharacter usage: {usage.character.count} of {usage.character.limit}. 1 Document = 50,000 characters.")
     if usage.document.valid:
-        print(f"Document usage: {usage.document.count} of {usage.document.limit}")        
+        print(f"\nDocument usage: {usage.document.count} of {usage.document.limit}")        
 
     input("\nPress Enter key to select a file to translate to English.")
     input_path = askopenfilename(
