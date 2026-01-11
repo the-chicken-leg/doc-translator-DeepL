@@ -5,6 +5,8 @@ from pathlib import Path
 
 import deepl
 
+from get_languages import *
+
 def main():
     usage = None
     while not usage:
@@ -22,9 +24,16 @@ def main():
     if usage.document.valid:
         print(f"\nDocument usage: {usage.document.count} of {usage.document.limit}")        
 
+    target_lang, formality = None, None
+    while target_lang not in LANGUAGES:
+        target_lang = input("\nEnter target language abbreviation (EN-US, DE, FR, etc.): ")
+    if LANGUAGES[target_lang]["supports_formality"]:
+        while formality not in FORMALITIES:
+            formality = input(f"Enter formality level for {LANGUAGES[target_lang]["name"]} (less, more, prefer_less, or prefer_more): ")
+
     input_path = None
     while not input_path:
-        input("\nPress Enter key to select a file to translate to English.")
+        input("\nPress Enter key to select a file to translate.")
         input_path = askopenfilename(
             defaultextension="pdf",
             filetypes=[("PDF files", "*.pdf"), ("All Files", "*.*")],
@@ -47,22 +56,22 @@ def main():
         deepl_client.translate_document_from_filepath(
             input_path,
             output_path,
-            target_lang="EN-US",
-            # formality="more"
+            target_lang=target_lang,
+            formality=formality,
         )
+        input("Translation finished. Press Enter key to exit.")
+        print("Cleaning up...")
+    except deepl.DeepLException as error:
+        # Errors during upload raise a DeepLException
+        input(f"{error}\nPress Enter key to exit.")
+        print("Cleaning up...")        
     except deepl.DocumentTranslationException as error:
         # If an error occurs during document translation after the document was
         # already uploaded, a DocumentTranslationException is raised. The
         # document_handle property contains the document handle that may be used to
         # later retrieve the document from the server, or contact DeepL support.
-        doc_id = error.document_handle.id
-        doc_key = error.document_handle.key
-        print(f"Error after uploading ${error}, id: ${doc_id} key: ${doc_key}")
-    except deepl.DeepLException as error:
-        # Errors during upload raise a DeepLException
-        print(error)
-    input("Translation finished. Press Enter key to exit")
-    print("Cleaning up...")
+        input(f"Error after uploading: {error}\nPress Enter key to exit.")
+        print("Cleaining up...")
 
 if __name__ == "__main__":
     main()
