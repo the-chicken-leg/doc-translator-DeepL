@@ -26,14 +26,16 @@ def main():
     if not LANGUAGE_DATA[target_lang]["supports_formality"]:
         formality = None
 
-    usage = None
+    usage, api_key = None, None
     while not usage:
-        api_key = getpass(prompt="Enter API key: ")
+        while not api_key:
+            api_key = getpass(prompt="Enter API key: ")
         try:
             deepl_client = deepl.DeepLClient(api_key)
             usage = deepl_client.get_usage()
         except deepl.AuthorizationException as error:
             print(f"Error: {error}")
+            api_key = None
 
     if usage.any_limit_reached:
         print('\nTranslation limit reached.')
@@ -61,7 +63,7 @@ def main():
         )
     output_path = Path(output_path)
     print(f"Selected save location: {output_path}")
-    
+
     print("\nTranslating. This might take a few minutes...")
     try:
         deepl_client.translate_document_from_filepath(
