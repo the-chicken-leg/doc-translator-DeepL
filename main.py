@@ -2,12 +2,30 @@ from getpass import getpass
 from tkinter.filedialog import askopenfilename
 from tkinter.filedialog import asksaveasfilename
 from pathlib import Path
+import argparse
 
 import deepl
 
 from get_languages import *
 
 def main():
+    parser = argparse.ArgumentParser(description="Translate a document with DeepL.")
+    parser.add_argument(
+        "target_lang",
+        choices=LANGUAGES,
+        help="available target languages"
+    )
+    parser.add_argument(
+        "-f",
+        "--formality",
+        choices=FORMALITIES,
+        default="more",
+    )
+    args = parser.parse_args()
+    target_lang, formality = args.target_lang, args.formality
+    if not LANGUAGE_DATA[target_lang]["supports_formality"]:
+        formality = None
+
     usage = None
     while not usage:
         api_key = getpass(prompt="Enter API key: ")
@@ -15,7 +33,7 @@ def main():
             deepl_client = deepl.DeepLClient(api_key)
             usage = deepl_client.get_usage()
         except deepl.AuthorizationException as error:
-            print(error)
+            print(f"Error: {error}")
 
     if usage.any_limit_reached:
         print('\nTranslation limit reached.')
@@ -23,13 +41,6 @@ def main():
         print(f"\nCharacter usage: {usage.character.count} of {usage.character.limit}. 1 Document = 50,000 characters.")
     if usage.document.valid:
         print(f"\nDocument usage: {usage.document.count} of {usage.document.limit}")        
-
-    target_lang, formality = None, None
-    while target_lang not in LANGUAGES:
-        target_lang = input("\nEnter target language abbreviation (EN-US, DE, FR, etc.): ")
-    if LANGUAGES[target_lang]["supports_formality"]:
-        while formality not in FORMALITIES:
-            formality = input(f"Enter formality level for {LANGUAGES[target_lang]["name"]} (less, more, prefer_less, or prefer_more): ")
 
     input_path = None
     while not input_path:
@@ -39,7 +50,7 @@ def main():
             filetypes=[("PDF files", "*.pdf"), ("All Files", "*.*")],
         )
     input_path = Path(input_path)
-    print(f"Selected file: {input_path}")
+    print(f"Selected file:          {input_path}")
 
     output_path = None
     while not output_path:
@@ -61,10 +72,6 @@ def main():
         )
         input("Translation finished. Press Enter key to exit.")
         print("Cleaning up...")
-    except deepl.DeepLException as error:
-        # Errors during upload raise a DeepLException
-        input(f"{error}\nPress Enter key to exit.")
-        print("Cleaning up...")        
     except deepl.DocumentTranslationException as error:
         # If an error occurs during document translation after the document was
         # already uploaded, a DocumentTranslationException is raised. The
@@ -72,6 +79,10 @@ def main():
         # later retrieve the document from the server, or contact DeepL support.
         input(f"Error after uploading: {error}\nPress Enter key to exit.")
         print("Cleaining up...")
+    except deepl.DeepLException as error:
+        # Errors during upload raise a DeepLException
+        input(f"Error: {error}\nPress Enter key to exit.")
+        print("Cleaning up...")        
 
 if __name__ == "__main__":
     main()

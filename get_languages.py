@@ -5,7 +5,7 @@ from pprint import pprint
 # the below code imports languages from ./supported_languages.json
 # with open(Path("./supported_languages.json"), mode="r", encoding="utf-8") as f:
 #     languages = json.load(f)
-# LANGUAGES = {
+# LANGUAGES_DATA = {
 #     language["language"]: {
 #         "name": language["name"],
 #         "supports_formality": language["supports_formality"]
@@ -13,7 +13,7 @@ from pprint import pprint
 #     for language in languages
 # }
 
-LANGUAGES = {
+LANGUAGE_DATA = {
     'AR': {'name': 'Arabic', 'supports_formality': False},
     'BG': {'name': 'Bulgarian', 'supports_formality': False},
     'CS': {'name': 'Czech', 'supports_formality': False},
@@ -54,9 +54,13 @@ LANGUAGES = {
     'ZH-HANT': {'name': 'Chinese (traditional)', 'supports_formality': False}
 }
 
+LANGUAGES = [language for language in LANGUAGE_DATA]
+
 FORMALITIES = ["less", "more", "prefer_less", "prefer_more"]
 
 if __name__ == "__main__":
+    pprint(LANGUAGE_DATA)
+    print()
     pprint(LANGUAGES)
     print()
     pprint(FORMALITIES)
