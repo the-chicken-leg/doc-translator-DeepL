@@ -56,12 +56,16 @@ LANGUAGE_DATA = {
 
 LANGUAGES = [language for language in LANGUAGE_DATA]
 
+SPELLED_OUT = ", ".join([f"{long['name']} ({short})" for short, long in LANGUAGE_DATA.items()])
+
 FORMALITIES = ["less", "more", "prefer_less", "prefer_more"]
 
 if __name__ == "__main__":
     pprint(LANGUAGE_DATA)
     print()
     pprint(LANGUAGES)
+    print()
+    print(SPELLED_OUT)
     print()
     pprint(FORMALITIES)
     
