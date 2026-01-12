@@ -70,19 +70,16 @@ def main():
             target_lang=target_lang,
             formality=formality,
         )
-        input("Translation finished. Press Enter key to exit.")
-        print("Cleaning up...")
+        print("Translation finished.")
     except deepl.DocumentTranslationException as error:
         # If an error occurs during document translation after the document was
         # already uploaded, a DocumentTranslationException is raised. The
         # document_handle property contains the document handle that may be used to
         # later retrieve the document from the server, or contact DeepL support.
-        input(f"Error after uploading: {error}\nPress Enter key to exit.")
-        print("Cleaining up...")
+        print(f"Error after uploading: {error}")
     except deepl.DeepLException as error:
         # Errors during upload raise a DeepLException
-        input(f"Error: {error}\nPress Enter key to exit.")
-        print("Cleaning up...")        
+        print(f"Error: {error}")       
 
 if __name__ == "__main__":
     main()
