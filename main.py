@@ -40,7 +40,7 @@ def main():
     if usage.any_limit_reached:
         print('\nTranslation limit reached.')
     if usage.character.valid:
-        print(f"\nCharacter usage: {usage.character.count} of {usage.character.limit}. 1 Document = 50,000 characters.")
+        print(f"\nCharacter usage: {usage.character.count} of {usage.character.limit}. 1 Document >= 50,000 characters.")
     if usage.document.valid:
         print(f"\nDocument usage: {usage.document.count} of {usage.document.limit}")        
 
