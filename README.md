@@ -1,10 +1,10 @@
 # doc-translator-DeepL
 
-This Python CLI application translates a document using the DeepL API.
+This Python CLI program translates a document using the DeepL API.
 
 ## Usage
 
-Download the .exe and run from command line. The target language abbreviation is a required argument. The formality level is an option. Use --help option for more info.
+The target language abbreviation is a required argument. The formality level is an option. Use --help option for more info.
 
 ![usage](/media/usage.png)
 
