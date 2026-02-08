@@ -6,7 +6,7 @@ import argparse
 
 import deepl
 
-from get_languages import *
+from get_languages import LANGUAGES, FORMALITIES, LANGUAGE_DATA
 
 def main():
     parser = argparse.ArgumentParser(description="Translate a document with DeepL.")
