@@ -3,8 +3,8 @@ from pathlib import Path
 from pprint import pprint
 
 # the below code imports languages from ./supported_languages.json
-# ./supported_languages.json pulled from here: https://developers.deepl.com/api-reference/languages
-# cool improvement would be to pull supported languages automatically at program startup
+# ./supported_languages.json manually copied from here: https://developers.deepl.com/api-reference/languages
+# cool improvement would be to pull supported languages from URL automatically at program startup
 
 with open(Path("./supported_languages.json"), mode="r", encoding="utf-8") as f:
     languages = json.load(f)
