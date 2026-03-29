@@ -38,12 +38,14 @@ def main():
         target_lang = input("\nEnter target language abbreviation: ")
         if target_lang not in abbreviations:
             target_lang = None
+            print("Not a valid target language abbreviation.")
 
     formality = None
     while not formality:
         formality = input("\nEnter formality level (default, prefer_more, prefer_less): ")
         if formality not in ("default", "prefer_more", "prefer_less"):
             formality = None
+            print("Not a valid formality level.")
 
     # select source and destination filepaths
     input_path = None

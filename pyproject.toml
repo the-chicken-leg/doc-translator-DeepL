@@ -1,7 +1,7 @@
 [project]
 name = "doc-translator-deepl"
 version = "0.1.0"
-description = "Add your description here"
+description = "Translate documents using the DeepL API."
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
