@@ -30,7 +30,7 @@ def main():
 
     # get supported languages (https://developers.deepl.com/api-reference/languages)
     response = requests.get(
-        "https://api-free.deepl.com/v2/languages?type=target",
+        "https://api.deepl.com/v2/languages?type=target",
         headers={"Authorization": f"DeepL-Auth-Key {api_key}"},
     )
 
