@@ -4,13 +4,17 @@ This Python script uses the DeepL API to translate a document.
 
 ## Usage
 
-Run the main.py file (detailed instructions below) and follow the prompts to translate a document.
+Run the doc-translator-DeepL.py file (instructions below) and follow the prompts to translate a document.
 
 ![powershell](screenshots/powershell.png)
 
 ## Run on Windows with uv
 
-1. Install uv: https://docs.astral.sh/uv/getting-started/installation/#__tabbed_1_2
+1. Install uv using PowerShell (full instructions here: https://docs.astral.sh/uv/getting-started/installation):
+
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
 
 2. Verify uv installed correctly:
 
@@ -18,13 +22,13 @@ Run the main.py file (detailed instructions below) and follow the prompts to tra
 uv --version
 ```
 
-3. Download script file
+3. Download script file:
 
 ```powershell
 curl -L -O https://github.com/the-chicken-leg/doc-translator-DeepL/blob/main/doc-translator-DeepL.py?raw=true
 ```
 
-5. Run using uv. On the first run, uv will download the appropriate python version, create a venv, and install dependencies, which might take some time. Subsequent runs will be faster:
+4. Run using uv. On the first run, uv will download the appropriate python version, create a venv, and install dependencies, which might take some time. Subsequent runs will be faster:
 
 ```powershell
 uv run .\doc-translator-DeepL.py
