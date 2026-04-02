@@ -4,7 +4,7 @@ This Python script uses the DeepL API to translate a document.
 
 ## Usage
 
-Run the doc-translator-DeepL.py file (instructions below) and follow the prompts to translate a document.
+Run the `doc-translator-DeepL.py` file (instructions below) and follow the prompts to translate a document.
 
 ![powershell](screenshots/powershell.png)
 
