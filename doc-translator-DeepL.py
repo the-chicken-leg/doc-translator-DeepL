@@ -1,3 +1,9 @@
+# /// script
+# requires-python = ">=3.14"
+# dependencies = [
+#     "deepl>=1.29.0",
+# ]
+# ///
 from getpass import getpass
 from tkinter.filedialog import askopenfilename
 from tkinter.filedialog import asksaveasfilename
