@@ -2,6 +2,7 @@ from getpass import getpass
 from tkinter.filedialog import askopenfilename
 from tkinter.filedialog import asksaveasfilename
 from pathlib import Path
+from itertools import zip_longest
 
 import deepl
 
@@ -30,7 +31,18 @@ def main():
     # get supported languages
     supported_languages, abbreviations = get_languages(api_key)
 
-    print(f"\nSupported target languages are:\n\n{supported_languages}")
+    # print supported languages
+    cols = 3
+    split_point = (len(supported_languages) + cols - 1) // cols
+    group_1 = supported_languages[:split_point]
+    group_2 = supported_languages[split_point:split_point * 2]
+    group_3 = supported_languages[split_point * 2:]
+    spacing_1 = max(len(lang_text) for lang_text in group_1) + 3
+    spacing_2 = max(len(lang_text) for lang_text in group_2) + 3
+
+    print("\nSupported target languages are:\n")
+    for column_1, column_2, column_3 in zip_longest(group_1, group_2, group_3, fillvalue=""):
+        print(f"{column_1:<{spacing_1}}{column_2:<{spacing_2}}{column_3}")
 
     # user enters target language and formality level
     target_lang = None
