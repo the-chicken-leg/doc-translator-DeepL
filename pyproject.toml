@@ -5,5 +5,5 @@ description = "Translate documents using the DeepL API."
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
-    "deepl>=1.28.0",
+    "deepl>=1.29.0",
 ]
