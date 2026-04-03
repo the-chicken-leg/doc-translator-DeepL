@@ -46,7 +46,7 @@ def main():
     spacing_1 = max(len(lang_text) for lang_text in group_1) + 3
     spacing_2 = max(len(lang_text) for lang_text in group_2) + 3
 
-    print("\nSupported target languages are:\n")
+    print("\nSupported target languages:\n")
     for column_1, column_2, column_3 in zip_longest(group_1, group_2, group_3, fillvalue=""):
         print(f"{column_1:<{spacing_1}}{column_2:<{spacing_2}}{column_3}")
 
