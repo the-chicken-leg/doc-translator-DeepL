@@ -9,10 +9,8 @@ from tkinter.filedialog import askopenfilename
 from tkinter.filedialog import asksaveasfilename
 from pathlib import Path
 from itertools import zip_longest
-import json
-import requests
 
-import deepl
+import deepl    # https://github.com/deeplcom/deepl-python
 
 def main():
     # validate API key and get usage stats
@@ -34,15 +32,10 @@ def main():
     if usage.document.valid:
         print(f"\nDocument usage: {usage.document.count} of {usage.document.limit}")  
 
-    # get supported languages (https://developers.deepl.com/api-reference/languages)
-    response = requests.get(
-        "https://api.deepl.com/v2/languages?type=target",
-        headers={"Authorization": f"DeepL-Auth-Key {api_key}"},
-    )
-
-    languages = sorted(json.loads(response.text), key=lambda d: d["name"])
-    supported_languages = [f"{language["name"]} ({language["language"]})" for language in languages]
-    abbreviations = [language["language"] for language in languages]
+    # get supported languages
+    deepl_languages = deepl_client.get_target_languages()
+    supported_languages = sorted([f"{deepl_language.name} ({deepl_language.code})" for deepl_language in deepl_languages])
+    abbreviations = [deepl_language.code for deepl_language in deepl_languages]
 
     # print supported languages
     cols = 3
