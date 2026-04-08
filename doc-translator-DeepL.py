@@ -85,7 +85,7 @@ output_path = Path(output_path)
 print(f"Selected save location: {output_path}")
 
 # translate
-print("\nTranslating. This might take a few minutes...")
+print("\nTranslating...")
 try:
     deepl_client.translate_document_from_filepath(
         input_path,
