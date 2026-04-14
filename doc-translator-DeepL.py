@@ -1,7 +1,7 @@
 # /// script
 # requires-python = "==3.13.*"
 # dependencies = [
-#     "deepl==1.29.0",
+#     "deepl>=1.29.0",
 # ]
 # ///
 
