@@ -94,7 +94,7 @@ try:
         target_lang=target_lang,
         formality=formality,
     )
-    print("Translation finished.")
+    print("Translation finished.\n")
 except deepl.DocumentTranslationException as err:
     # If an error occurs during document translation after the document was
     # already uploaded, a DocumentTranslationException is raised. The
